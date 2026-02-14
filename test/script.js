@@ -8,16 +8,48 @@ function showQuestion(){
 
 function answerYes(){
   if(step === 1){
+    // First question YES: go to second question
     document.getElementById("letterBox").style.display = "none";
     document.getElementById("questionText").textContent = "Are you okay?";
     step = 2;
   } else if(step === 2){
-    showLoadingThenFreedomWall();
+    // Second question YES: show letter for 5s, then proceed to Freedom Wall
+    document.getElementById("questionText").style.display = "none";
+    document.getElementById("yesBtn").style.display = "none";
+    document.getElementById("noBtn").style.display = "none";
+
+    const letterBox = document.getElementById("letterBox");
+    letterBox.style.display = "block";
+    letterBox.innerHTML = `
+      <p style="text-align:center; font-size:1.2rem; margin-bottom:20px;">
+        Ohhh, Great!! 💌
+      </p>
+    `;
+
+    // After 5 seconds, hide letter and show loading → Freedom Wall
+    setTimeout(() => {
+      letterBox.style.display = "none";
+      showLoadingThenFreedomWall();
+    }, 5000);
   }
 }
 
 function answerNo(){
-  if(step === 2){
+  if(step === 1){
+    // First question NO: show letter and stop
+    document.getElementById("questionText").style.display = "none";
+    document.getElementById("yesBtn").style.display = "none";
+    document.getElementById("noBtn").style.display = "none";
+
+    const letterBox = document.getElementById("letterBox");
+    letterBox.style.display = "block";
+    letterBox.innerHTML = `
+      <p style="text-align:center; font-size:1.2rem; margin-bottom:20px;">
+        Ohhh, Have a nice day!! 💌
+      </p>
+    `;
+  } else if(step === 2){
+    // Second question NO: show letter for 5s, then proceed to Freedom Wall
     document.getElementById("questionText").style.display = "none";
     document.getElementById("yesBtn").style.display = "none";
     document.getElementById("noBtn").style.display = "none";
